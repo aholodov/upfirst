@@ -61,6 +61,7 @@ export default function MainContent() {
                 created_at={hit.created_at}
                 title={hit.title}
                 url={hit.url}
+                tags={hit._tags}
               />
             ))}
           </section>

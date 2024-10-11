@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { z } from 'zod'
 import { ChevronDown, ChevronUp } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button.tsx'
 import {
   Card,
@@ -17,9 +18,13 @@ import {
 import dateFormat from '@/lib/date-format.ts'
 import { hitSchema } from '@/lib/tanstack-query/search-options.ts'
 
-type HitProps = Omit<z.infer<typeof hitSchema>, 'objectID'>
+type Hit = z.infer<typeof hitSchema>
 
-export default function HitCard({ author, created_at, title, url }: HitProps) {
+interface HitProps extends Omit<Hit, 'objectID' | '_tags'> {
+  tags: Hit['_tags']
+}
+
+export default function HitCard({ author, created_at, title, url, tags }: HitProps) {
   const [isOpen, setIsOpen] = useState(false)
   const CollapsibleIcon = isOpen ? ChevronDown : ChevronUp
 
@@ -59,8 +64,14 @@ export default function HitCard({ author, created_at, title, url }: HitProps) {
         </CardHeader>
 
         <CollapsibleContent>
-          <CardContent>
-            <div>Content</div>
+          <CardContent className="ml-11">
+            <div className="flex gap-2 items-start">
+              <div>Tags:</div>
+
+              <div className="flex gap-2">
+                {tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
+              </div>
+            </div>
           </CardContent>
         </CollapsibleContent>
       </Collapsible>

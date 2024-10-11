@@ -8,6 +8,7 @@ export const hitSchema = z.object({
   author: z.string(),
   title: z.string(),
   url: z.string().url(),
+  _tags: z.array(z.string()),
 }).partial({
   title: true,
   url: true,
