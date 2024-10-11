@@ -1,6 +1,5 @@
 import {
   Card,
-  CardDescription,
   CardHeader,
   CardTitle
 } from '@/components/ui/card.tsx'
@@ -23,11 +22,11 @@ export default function SearchSkeletons() {
               <Skeleton className="ml-auto w-24 h-5" />
             </CardTitle>
 
-            <CardDescription className="flex flex-wrap gap-2 ml-11">
+            <div className="flex flex-wrap gap-2 ml-11">
               <Skeleton className="w-full h-3" />
 
               <Skeleton className="w-2/3 h-3" />
-            </CardDescription>
+            </div>
           </CardHeader>
         </Card>
       ))}
