@@ -5,6 +5,7 @@ import { InView } from 'react-intersection-observer'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import SearchSkeletons from '@/components/search-skeletons.tsx'
 import createSearchOptions from '@/lib/tanstack-query/search-options.ts'
+import HitCard from '@/components/hit-card.tsx'
 
 type InViewProps = ComponentProps<typeof InView>
 
@@ -50,19 +51,25 @@ export default function MainContent() {
 
   return (
     <>
-      {data.pages.map(({ page, hits }) => (
-        <section key={page} className="flex flex-col gap-2">
-          {hits.map((hit) => (
-            <code key={hit.objectID} className="whitespace-pre">
-              {JSON.stringify(hit, null, 2)}
-            </code>
-          ))}
-        </section>
-      ))}
+      <div className="flex flex-col gap-2">
+        {data.pages.map(({ page, hits }) => (
+          <section key={page} className="flex flex-col gap-2">
+            {hits.map((hit) => (
+              <HitCard
+                key={hit.objectID}
+                author={hit.author}
+                created_at={hit.created_at}
+                title={hit.title}
+                url={hit.url}
+              />
+            ))}
+          </section>
+        ))}
 
-      {isFetchingNextPage && (
-        <SearchSkeletons />
-      )}
+        {isFetchingNextPage && (
+          <SearchSkeletons />
+        )}
+      </div>
 
       {hasNextPage && !isFetchingNextPage && (
         <InView onChange={handleInViewChange} />

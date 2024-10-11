@@ -2,7 +2,7 @@ import { infiniteQueryOptions } from '@tanstack/react-query'
 import { z } from 'zod'
 import axiosInstance from '@/lib/axios-instance.ts'
 
-const hitSchema = z.object({
+export const hitSchema = z.object({
   objectID: z.string(),
   created_at: z.string().datetime(),
   author: z.string(),
@@ -12,7 +12,7 @@ const hitSchema = z.object({
   title: true,
   url: true,
 })
-const searchResponseSchema = z.object({
+export const searchResponseSchema = z.object({
   nbPages: z.number().int(),
   page: z.number().int(),
   hits: z.array(hitSchema),
