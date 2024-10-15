@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { z } from 'zod'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button.tsx'
+import { Button, buttonVariants } from '@/components/ui/button.tsx'
 import {
   Card,
   CardContent,
@@ -27,6 +27,7 @@ interface HitProps extends Omit<Hit, 'objectID' | '_tags'> {
 export default function HitCard({ author, created_at, title, url, tags }: HitProps) {
   const [isOpen, setIsOpen] = useState(false)
   const CollapsibleIcon = isOpen ? ChevronDown : ChevronUp
+  const type = tags.at(0) ?? 'Unknown'
 
   return (
     <Card>
@@ -35,32 +36,30 @@ export default function HitCard({ author, created_at, title, url, tags }: HitPro
         onOpenChange={setIsOpen}
       >
         <CardHeader>
-          <CardTitle className="flex gap-2 items-center">
+          <CardTitle className="flex items-start gap-2">
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="shrink-0">
                 <CollapsibleIcon className="h-4 w-4" />
                 <span className="sr-only">Toggle</span>
               </Button>
             </CollapsibleTrigger>
 
-            {author}
+            <span className="mt-2.5">{title}</span>
 
-            <time className="ml-auto" dateTime={created_at}>{dateFormat(created_at)}</time>
+            {!!url && (
+              <a href={url} target="_blank" className={buttonVariants({ size: 'icon', variant: 'ghost', className: 'shrink-0 ml-auto' })}>
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
           </CardTitle>
 
-          {!!title && (
-            <CardDescription className="ml-11">
-              {url ?
-                (<a
-                  href={url}
-                  target="_blank"
-                >
-                  {title}
-                </a>)
-                : title
-              }
-            </CardDescription>
-          )}
+          <CardDescription className="flex items-center gap-2 ml-11">
+            <Badge>{type}</Badge>
+
+            {author}
+
+            <time dateTime={created_at}>{dateFormat(created_at)}</time>
+          </CardDescription>
         </CardHeader>
 
         <CollapsibleContent>
