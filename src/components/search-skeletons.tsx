@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/card.tsx'
 import { Skeleton } from '@/components/ui/skeleton.tsx'
 
-const SKELETONS = Array.from({ length: 10 }).map((_, i) => i);
+const SKELETONS = Array.from({ length: 10 }).map((_, i) => i)
 
 export default function SearchSkeletons() {
   return (

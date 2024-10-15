@@ -15,16 +15,17 @@ import {
   CollapsibleContent,
   CollapsibleTrigger
 } from '@/components/ui/collapsible.tsx'
+import Comments from '@/components/comments.tsx'
 import dateFormat from '@/lib/date-format.ts'
 import { hitSchema } from '@/lib/tanstack-query/search-options.ts'
 
 type Hit = z.infer<typeof hitSchema>
 
-interface HitProps extends Omit<Hit, 'objectID' | '_tags'> {
+interface HitProps extends Omit<Hit, '_tags'> {
   tags: Hit['_tags']
 }
 
-export default function HitCard({ author, created_at, title, url, tags }: HitProps) {
+export default function HitCard({ objectID, author, created_at, title, url, tags }: HitProps) {
   const [isOpen, setIsOpen] = useState(false)
   const CollapsibleIcon = isOpen ? ChevronDown : ChevronUp
   const type = tags.at(0) ?? 'Unknown'
@@ -35,10 +36,10 @@ export default function HitCard({ author, created_at, title, url, tags }: HitPro
         open={isOpen}
         onOpenChange={setIsOpen}
       >
-        <CardHeader>
+        <CardHeader className="p-3 sm:px-6">
           <CardTitle className="flex items-start gap-2">
             <CollapsibleTrigger asChild>
-              <Button variant="ghost" size="icon" className="shrink-0">
+              <Button variant="ghost" size="icon" className="shrink-0 order-last sm:order-none">
                 <CollapsibleIcon className="h-4 w-4" />
                 <span className="sr-only">Toggle</span>
               </Button>
@@ -53,7 +54,7 @@ export default function HitCard({ author, created_at, title, url, tags }: HitPro
             )}
           </CardTitle>
 
-          <CardDescription className="flex items-center gap-2 ml-11">
+          <CardDescription className="flex items-center gap-2 sm:ml-11">
             <Badge>{type}</Badge>
 
             {author}
@@ -63,14 +64,8 @@ export default function HitCard({ author, created_at, title, url, tags }: HitPro
         </CardHeader>
 
         <CollapsibleContent>
-          <CardContent className="ml-11">
-            <div className="flex gap-2 items-start">
-              <div>Tags:</div>
-
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}
-              </div>
-            </div>
+          <CardContent className="p-3 sm:px-6 sm:ml-11">
+            <Comments itemId={objectID} />
           </CardContent>
         </CollapsibleContent>
       </Collapsible>

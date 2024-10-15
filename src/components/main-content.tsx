@@ -1,4 +1,4 @@
-import { type ComponentProps } from 'react';
+import { type ComponentProps } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { TriangleAlert, Info } from 'lucide-react'
 import { InView } from 'react-intersection-observer'
@@ -24,7 +24,7 @@ export default function MainContent() {
   if (error) {
     return (
       <Alert variant="destructive">
-        <TriangleAlert className="h-4 w-4"/>
+        <TriangleAlert className="h-4 w-4" />
 
         <AlertTitle>Error</AlertTitle>
 
@@ -57,6 +57,7 @@ export default function MainContent() {
             {hits.map((hit) => (
               <HitCard
                 key={hit.objectID}
+                objectID={hit.objectID}
                 author={hit.author}
                 created_at={hit.created_at}
                 title={hit.title}

@@ -17,7 +17,7 @@ export const searchResponseSchema = z.object({
   nbPages: z.number().int(),
   page: z.number().int(),
   hits: z.array(hitSchema),
-});
+})
 
 export default function createSearchOptions() {
   return infiniteQueryOptions({
@@ -30,11 +30,11 @@ export default function createSearchOptions() {
           hitsPerPage: 10,
         },
         signal,
-      });
+      })
 
-      return searchResponseSchema.parse(response.data);
+      return searchResponseSchema.parse(response.data)
     },
     initialPageParam: 0,
     getNextPageParam: ({ nbPages, page }) => page < nbPages ? page + 1 : null,
   })
-};
+}
