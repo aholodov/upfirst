@@ -1,16 +1,28 @@
-import { type ComponentProps } from 'react';
+import { type ComponentProps } from 'react'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router-dom'
 import { TriangleAlert, Info } from 'lucide-react'
 import { InView } from 'react-intersection-observer'
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
-import SearchSkeletons from '@/components/search-skeletons.tsx'
-import createSearchOptions from '@/lib/tanstack-query/search-options.ts'
-import HitCard from '@/components/hit-card.tsx'
+import SearchSkeletons from '@/components/search-skeletons'
+import createSearchOptions from '@/lib/tanstack-query/search-options'
+import HitCard from '@/components/hit-card'
+import queryParams from '@/constants/query-param-keys'
 
 type InViewProps = ComponentProps<typeof InView>
 
 export default function MainContent() {
-  const { isLoading, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery(createSearchOptions())
+  const [searchParams] = useSearchParams()
+  const query = searchParams.get(queryParams.query) ?? undefined
+  const tags = searchParams.getAll(queryParams.tagsOr)
+  const perPage = searchParams.get(queryParams.perPage) ?? '10'
+  const { isLoading, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery(
+    createSearchOptions({
+      tags,
+      perPage,
+      query,
+    })
+  )
   const handleInViewChange: InViewProps['onChange'] = (inView) => {
     if (!inView) return
 
@@ -24,7 +36,7 @@ export default function MainContent() {
   if (error) {
     return (
       <Alert variant="destructive">
-        <TriangleAlert className="h-4 w-4"/>
+        <TriangleAlert className="h-4 w-4" />
 
         <AlertTitle>Error</AlertTitle>
 
@@ -57,6 +69,7 @@ export default function MainContent() {
             {hits.map((hit) => (
               <HitCard
                 key={hit.objectID}
+                objectID={hit.objectID}
                 author={hit.author}
                 created_at={hit.created_at}
                 title={hit.title}

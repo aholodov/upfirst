@@ -1,40 +1,48 @@
 import { infiniteQueryOptions } from '@tanstack/react-query'
 import { z } from 'zod'
-import axiosInstance from '@/lib/axios-instance.ts'
+import axiosInstance from '@/lib/axios-instance'
+import tagsValues from '@/constants/tag-values'
 
 export const hitSchema = z.object({
   objectID: z.string(),
   created_at: z.string().datetime(),
   author: z.string(),
-  title: z.string(),
-  url: z.string().url(),
-  _tags: z.array(z.string()),
-}).partial({
-  title: true,
-  url: true,
+  title: z.string().optional(),
+  url: z.string().url().optional().or(z.literal('')),
+  _tags: z.string().array(),
 })
 export const searchResponseSchema = z.object({
   nbPages: z.number().int(),
   page: z.number().int(),
-  hits: z.array(hitSchema),
-});
+  hits: hitSchema.array(),
+})
 
-export default function createSearchOptions() {
+interface SearchParams {
+  tags: Array<string>
+  perPage: string
+  query?: string
+}
+
+export default function createSearchOptions(params: SearchParams) {
   return infiniteQueryOptions({
-    queryKey: ['api/v1/search'] as const,
-    queryFn: async ({ queryKey: [path], signal, pageParam }) => {
+    queryKey: ['api/v1/search', params] as const,
+    queryFn: async ({ queryKey: [path, params], signal, pageParam }) => {
+      const tagsOr = params.tags.length
+        ? params.tags
+        : [tagsValues.story, tagsValues.show, tagsValues.ask, tagsValues.front]
       const response = await axiosInstance.get(path, {
         params: {
           page: pageParam,
-          tags: '(story,show_hn,ask_hn,front_page)',
-          hitsPerPage: 10,
+          tags: `(${tagsOr.join(',')})`,
+          hitsPerPage: params.perPage,
+          query: params.query,
         },
         signal,
-      });
+      })
 
-      return searchResponseSchema.parse(response.data);
+      return searchResponseSchema.parse(response.data)
     },
     initialPageParam: 0,
     getNextPageParam: ({ nbPages, page }) => page < nbPages ? page + 1 : null,
   })
-};
+}

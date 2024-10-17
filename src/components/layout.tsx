@@ -1,8 +1,8 @@
 import { type PropsWithChildren } from 'react'
 import { PanelLeft } from 'lucide-react'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import MainMenuUiFragment from '@/components/main-menu-ui-fragment.tsx'
+import MainMenuUiFragment from '@/components/main-menu-ui-fragment'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
@@ -12,7 +12,7 @@ export default function Layout({ children }: PropsWithChildren) {
       </aside>
 
       <div className="flex flex-col flex-1 gap-y-4 sm:pl-[240px]">
-        <header className="flex sticky top-0 z-30 border-b bg-background px-4 sm:px-6 py-2">
+        <header className="flex sticky top-0 z-30 border-b bg-background px-4 py-2 sm:hidden sm:px-6">
           <Sheet>
             <SheetTrigger asChild>
               <Button size="icon" variant="outline" className="sm:hidden">
@@ -30,23 +30,11 @@ export default function Layout({ children }: PropsWithChildren) {
               </div>
             </SheetContent>
           </Sheet>
-
-          <div className="ml-auto">
-            <Button>
-              Header button
-            </Button>
-          </div>
         </header>
 
-        <main className="flex-1 p-4 sm:px-6 sm:py-0 md:gap-8">
+        <main className="flex-1 p-4 py-0 sm:px-6 sm:py-4 md:gap-8 max-w-4xl">
           {children}
         </main>
-
-        <footer className="flex sticky bottom-0 z-30 border-t bg-background px-4 sm:px-6 py-2">
-          <a href="#" className={buttonVariants({ className: 'mx-auto' })}>
-            help center
-          </a>
-        </footer>
       </div>
     </div>
   )

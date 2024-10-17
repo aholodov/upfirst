@@ -1,13 +1,15 @@
-import { Button } from '@/components/ui/button.tsx'
+import PerPageSelect from '@/components/per-page-select'
+import SearchInput from '@/components/search-input'
+import TagCheckboxes from '@/components/tag-checkboxes'
 
 export default function MainMenuUiFragment() {
   return (
-    <>
-      <div className="flex min-h-60 justify-center items-center bg-purple-500 rounded">
-        Main menu UI block
-      </div>
+    <div className="flex flex-col gap-2 w-full">
+      <SearchInput />
 
-      <Button>logout</Button>
-    </>
+      <TagCheckboxes />
+
+      <PerPageSelect />
+    </div>
   )
 }
