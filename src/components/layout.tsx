@@ -1,5 +1,6 @@
 import { type PropsWithChildren } from 'react'
 import { PanelLeft } from 'lucide-react'
+import { ScrollRestoration } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import MainMenuUiFragment from '@/components/main-menu-ui-fragment'
@@ -33,6 +34,7 @@ export default function Layout({ children }: PropsWithChildren) {
         </header>
 
         <main className="flex-1 p-4 py-0 sm:px-6 sm:py-4 md:gap-8 max-w-4xl">
+          <ScrollRestoration />
           {children}
         </main>
       </div>
