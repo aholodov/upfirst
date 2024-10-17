@@ -4,9 +4,9 @@ import {
   CardContent,
   CardFooter,
   CardDescription,
-} from '@/components/ui/card.tsx'
-import type { Item } from '@/lib/tanstack-query/item-options.ts'
-import dateFormat from '@/lib/date-format.ts'
+} from '@/components/ui/card'
+import type { Item } from '@/lib/tanstack-query/item-options'
+import dateFormat from '@/lib/date-format'
 
 type CommentsTreeProps = Pick<Item, 'children'>
 

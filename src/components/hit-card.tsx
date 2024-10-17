@@ -2,22 +2,22 @@ import { useState } from 'react'
 import { z } from 'zod'
 import { ChevronDown, ChevronUp, ExternalLink } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-import { Button, buttonVariants } from '@/components/ui/button.tsx'
+import { Button, buttonVariants } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle
-} from '@/components/ui/card.tsx'
+} from '@/components/ui/card'
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger
-} from '@/components/ui/collapsible.tsx'
-import Comments from '@/components/comments.tsx'
-import dateFormat from '@/lib/date-format.ts'
-import { hitSchema } from '@/lib/tanstack-query/search-options.ts'
+} from '@/components/ui/collapsible'
+import Comments from '@/components/comments'
+import dateFormat from '@/lib/date-format'
+import { hitSchema } from '@/lib/tanstack-query/search-options'
 
 type Hit = z.infer<typeof hitSchema>
 

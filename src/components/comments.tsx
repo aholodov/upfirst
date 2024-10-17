@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { Info, TriangleAlert } from 'lucide-react'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx'
-import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card.tsx';
-import { Skeleton } from '@/components/ui/skeleton.tsx'
-import CommentsTree from '@/components/comments-tree.tsx'
-import createItemOptions, { type ItemOptionProps } from '@/lib/tanstack-query/item-options.ts'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Card, CardContent, CardDescription, CardHeader } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import CommentsTree from '@/components/comments-tree'
+import createItemOptions, { type ItemOptionProps } from '@/lib/tanstack-query/item-options'
 
 const SKELETONS = Array.from({ length: 10 }).map((_, i) => i)
 

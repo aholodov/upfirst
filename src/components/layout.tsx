@@ -2,7 +2,7 @@ import { type PropsWithChildren } from 'react'
 import { PanelLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import MainMenuUiFragment from '@/components/main-menu-ui-fragment.tsx'
+import MainMenuUiFragment from '@/components/main-menu-ui-fragment'
 
 export default function Layout({ children }: PropsWithChildren) {
   return (

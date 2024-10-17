@@ -2,8 +2,8 @@ import {
   Card,
   CardHeader,
   CardTitle
-} from '@/components/ui/card.tsx'
-import { Skeleton } from '@/components/ui/skeleton.tsx'
+} from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const SKELETONS = Array.from({ length: 10 }).map((_, i) => i)
 

@@ -7,7 +7,7 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import SearchSkeletons from '@/components/search-skeletons'
 import createSearchOptions from '@/lib/tanstack-query/search-options'
 import HitCard from '@/components/hit-card'
-import queryParams from '@/constants/query-param-keys';
+import queryParams from '@/constants/query-param-keys'
 
 type InViewProps = ComponentProps<typeof InView>
 
