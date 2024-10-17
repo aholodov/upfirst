@@ -1,7 +1,7 @@
 const queryParams = {
   query: 'q',
   perPage: 'pp',
-  tags: 't'
+  tagsOr: 'tr'
 } as const
 
 export default queryParams

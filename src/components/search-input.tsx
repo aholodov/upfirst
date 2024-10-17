@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Input, type InputProps } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import queryParams from '@/query-param-keys'
+import queryParams from '@/constants/query-param-keys'
 
 export default function SearchInput() {
   const timerIdRef = useRef<number>()

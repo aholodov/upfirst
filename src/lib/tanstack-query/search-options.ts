@@ -1,6 +1,7 @@
 import { infiniteQueryOptions } from '@tanstack/react-query'
 import { z } from 'zod'
 import axiosInstance from '@/lib/axios-instance'
+import tagsValues from '@/constants/tag-values'
 
 export const hitSchema = z.object({
   objectID: z.string(),
@@ -26,13 +27,13 @@ export default function createSearchOptions(params: SearchParams) {
   return infiniteQueryOptions({
     queryKey: ['api/v1/search', params] as const,
     queryFn: async ({ queryKey: [path, params], signal, pageParam }) => {
-      const tags = params.tags.length
-        ? `(${params.tags.join(',')})`
-        : '(story,show_hn,ask_hn,front_page)'
+      const tagsOr = params.tags.length
+        ? params.tags
+        : [tagsValues.story, tagsValues.show, tagsValues.ask, tagsValues.front]
       const response = await axiosInstance.get(path, {
         params: {
           page: pageParam,
-          tags,
+          tags: `(${tagsOr.join(',')})`,
           hitsPerPage: params.perPage,
           query: params.query,
         },

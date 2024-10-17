@@ -7,14 +7,14 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 import SearchSkeletons from '@/components/search-skeletons'
 import createSearchOptions from '@/lib/tanstack-query/search-options'
 import HitCard from '@/components/hit-card'
-import queryParams from '@/query-param-keys';
+import queryParams from '@/constants/query-param-keys';
 
 type InViewProps = ComponentProps<typeof InView>
 
 export default function MainContent() {
   const [searchParams] = useSearchParams()
   const query = searchParams.get(queryParams.query) ?? undefined
-  const tags = searchParams.getAll(queryParams.tags)
+  const tags = searchParams.getAll(queryParams.tagsOr)
   const perPage = searchParams.get(queryParams.perPage) ?? '10'
   const { isLoading, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery(
     createSearchOptions({

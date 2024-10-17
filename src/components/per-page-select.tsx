@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import queryParams from '@/query-param-keys'
+import queryParams from '@/constants/query-param-keys'
 
 type SelectProps = ComponentProps<typeof Select>
 const DEFAULT_PER_PAGE = '10'
