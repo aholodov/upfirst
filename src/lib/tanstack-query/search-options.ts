@@ -18,22 +18,29 @@ export const searchResponseSchema = z.object({
 })
 
 interface SearchParams {
-  tags: Array<string>
+  tagsAnd: Array<string>
+  tagsOr: Array<string>
   perPage: string
   query?: string
+}
+
+function createTags(params: Pick<SearchParams, 'tagsOr' | 'tagsAnd'>) {
+  const tagsOr = params.tagsOr.length
+    ? params.tagsOr
+    : [tagsValues.story, tagsValues.show, tagsValues.ask, tagsValues.front]
+
+  return [...params.tagsAnd, `(${tagsOr.join(',')})`].join(',')
 }
 
 export default function createSearchOptions(params: SearchParams) {
   return infiniteQueryOptions({
     queryKey: ['api/v1/search', params] as const,
     queryFn: async ({ queryKey: [path, params], signal, pageParam }) => {
-      const tagsOr = params.tags.length
-        ? params.tags
-        : [tagsValues.story, tagsValues.show, tagsValues.ask, tagsValues.front]
+      const tags = createTags(params)
       const response = await axiosInstance.get(path, {
         params: {
           page: pageParam,
-          tags: `(${tagsOr.join(',')})`,
+          tags,
           hitsPerPage: params.perPage,
           query: params.query,
         },

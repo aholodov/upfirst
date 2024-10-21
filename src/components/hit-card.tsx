@@ -18,6 +18,7 @@ import {
 import Comments from '@/components/comments'
 import dateFormat from '@/lib/date-format'
 import { hitSchema } from '@/lib/tanstack-query/search-options'
+import Username from '@/components/username'
 
 type Hit = z.infer<typeof hitSchema>
 
@@ -57,7 +58,7 @@ export default function HitCard({ objectID, author, created_at, title, url, tags
           <CardDescription className="flex items-center gap-2 sm:ml-11">
             <Badge>{type}</Badge>
 
-            {author}
+            <Username value={author} />
 
             <time dateTime={created_at}>{dateFormat(created_at)}</time>
           </CardDescription>

@@ -8,7 +8,7 @@ import MainMenuUiFragment from '@/components/main-menu-ui-fragment'
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-[240px] flex-col gap-2 justify-between border-r bg-background sm:flex px-4 pb-2 pt-[53px] overflow-y-auto">
+      <aside className="fixed inset-y-0 left-0 z-10 hidden w-[240px] flex-col gap-2 justify-between border-r bg-background sm:flex px-4 pb-2 pt-6 overflow-y-auto">
         <MainMenuUiFragment />
       </aside>
 

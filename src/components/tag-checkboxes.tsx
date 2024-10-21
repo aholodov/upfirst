@@ -51,7 +51,7 @@ export default function TagCheckboxes() {
   return (
     <div className="flex flex-col w-full gap-1">
       <Label asChild>
-        <span>Tags:</span>
+        <span>Type:</span>
       </Label>
 
       <div className="flex flex-col w-full gap-1">

@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card'
 import type { Item } from '@/lib/tanstack-query/item-options'
 import dateFormat from '@/lib/date-format'
+import Username from '@/components/username'
 
 type CommentsTreeProps = Pick<Item, 'children'>
 
@@ -23,7 +24,7 @@ export default function CommentsTree({ children }: CommentsTreeProps) {
             <Card>
               <CardHeader className="p-3 pb-1">
                 <CardDescription className="flex flex-wrap gap-2">
-                  {author}
+                  <Username value={author} />
 
                   <time dateTime={created_at}>{dateFormat(created_at)}</time>
                 </CardDescription>

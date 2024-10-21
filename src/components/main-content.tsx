@@ -14,11 +14,13 @@ type InViewProps = ComponentProps<typeof InView>
 export default function MainContent() {
   const [searchParams] = useSearchParams()
   const query = searchParams.get(queryParams.query) ?? undefined
-  const tags = searchParams.getAll(queryParams.tagsOr)
+  const tagsOr = searchParams.getAll(queryParams.tagsOr)
+  const tagsAnd = searchParams.getAll(queryParams.tagsAnd)
   const perPage = searchParams.get(queryParams.perPage) ?? '10'
   const { isLoading, error, data, isFetchingNextPage, hasNextPage, fetchNextPage } = useInfiniteQuery(
     createSearchOptions({
-      tags,
+      tagsAnd,
+      tagsOr,
       perPage,
       query,
     })
@@ -47,7 +49,7 @@ export default function MainContent() {
     )
   }
 
-  if (!data) {
+  if (!data?.pages.at(0)?.hits.length) {
     return (
       <Alert>
         <Info className="h-4 w-4" />
